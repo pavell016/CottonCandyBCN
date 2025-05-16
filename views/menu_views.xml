@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_cottoncandybcn_root"
+              name="CottonCandyBCN"
+              web_icon="CottonCandyBCN,static/description/icon.png"
+              sequence="1"/>
+
+    <!-- Clientes Submenu -->
+    <menuitem id="menu_cliente"
+              name="Clientes"
+              parent="menu_cottoncandybcn_root"
+              action="action_cliente_view"
+              sequence="10"/>
+
+    <!-- Productos Submenu -->
+    <menuitem id="menu_producto"
+              name="Productos"
+              parent="menu_cottoncandybcn_root"
+              action="action_producto_view"
+              sequence="20"/>
+
+    <!-- Pedidos Submenu -->
+    <menuitem id="menu_pedido"
+              name="Pedidos"
+              parent="menu_cottoncandybcn_root"
+              action="action_pedido_view"
+              sequence="30"/>
+
+    <!-- Detalles de Pedido Submenu -->
+    <menuitem id="menu_detalle_pedido"
+              name="Detalles de Pedido"
+              parent="menu_cottoncandybcn_root"
+              action="action_detalle_pedido_view"
+              sequence="40"/>
+</odoo> 
