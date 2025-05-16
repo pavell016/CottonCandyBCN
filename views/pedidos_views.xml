@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_pedido_tree" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.pedido.tree</field>
+        <field name="model">x_cotton_candy_bcn.pedido</field>
+        <field name="arch" type="xml">
+            <tree string="Pedidos" decoration-info="x_estado=='borrador'" decoration-success="x_estado=='entregado'" decoration-warning="x_estado=='en_proceso'">
+                <field name="x_name"/>
+                <field name="x_cliente_id"/>
+                <field name="x_fecha_pedido"/>
+                <field name="x_total"/>
+                <field name="x_estado"/>
+                <field name="x_metodo_pago_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_pedido_form" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.pedido.form</field>
+        <field name="model">x_cotton_candy_bcn.pedido</field>
+        <field name="arch" type="xml">
+            <form string="Pedido">
+                <header>
+                    <field name="x_estado" widget="statusbar" statusbar_visible="borrador,confirmado,en_proceso,enviado,entregado"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="x_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="x_cliente_id"/>
+                            <field name="x_fecha_pedido"/>
+                            <field name="x_metodo_pago_id"/>
+                        </group>
+                        <group>
+                            <field name="x_total"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas de Pedido">
+                            <field name="x_lineas_pedido">
+                                <tree editable="bottom">
+                                    <field name="x_producto_id"/>
+                                    <field name="x_cantidad"/>
+                                    <field name="x_precio_unitario"/>
+                                    <field name="x_subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notas">
+                            <field name="x_notas"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_pedido_search" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.pedido.search</field>
+        <field name="model">x_cotton_candy_bcn.pedido</field>
+        <field name="arch" type="xml">
+            <search string="Pedidos">
+                <field name="x_name"/>
+                <field name="x_cliente_id"/>
+                <field name="x_estado"/>
+                <separator/>
+                <filter string="Borradores" name="draft" domain="[('x_estado', '=', 'borrador')]"/>
+                <filter string="En Proceso" name="in_progress" domain="[('x_estado', '=', 'en_proceso')]"/>
+                <filter string="Entregados" name="delivered" domain="[('x_estado', '=', 'entregado')]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Cliente" name="cliente" context="{'group_by': 'x_cliente_id'}"/>
+                    <filter string="Estado" name="estado" context="{'group_by': 'x_estado'}"/>
+                    <filter string="Método de Pago" name="metodo_pago" context="{'group_by': 'x_metodo_pago_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Calendar View -->
+    <record id="view_pedido_calendar" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.pedido.calendar</field>
+        <field name="model">x_cotton_candy_bcn.pedido</field>
+        <field name="arch" type="xml">
+            <calendar string="Pedidos" date_start="x_fecha_pedido" color="x_estado">
+                <field name="x_name"/>
+                <field name="x_cliente_id"/>
+                <field name="x_total"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Action Window -->
+    <record id="action_pedidos" model="ir.actions.act_window">
+        <field name="name">Pedidos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">x_cotton_candy_bcn.pedido</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primer pedido
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_pedidos_root" 
+              name="Pedidos"
+              sequence="30"/>
+
+    <menuitem id="menu_pedidos_list"
+              name="Pedidos"
+              parent="menu_pedidos_root"
+              action="action_pedidos"
+              sequence="1"/>
+</odoo> 

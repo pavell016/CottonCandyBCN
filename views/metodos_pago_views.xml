@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_metodo_pago_tree" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.metodo_pago.tree</field>
+        <field name="model">x_cotton_candy_bcn.metodo_pago</field>
+        <field name="arch" type="xml">
+            <tree string="Métodos de Pago">
+                <field name="x_name"/>
+                <field name="x_descripcion"/>
+                <field name="x_activo"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_metodo_pago_form" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.metodo_pago.form</field>
+        <field name="model">x_cotton_candy_bcn.metodo_pago</field>
+        <field name="arch" type="xml">
+            <form string="Método de Pago">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="x_activo" widget="boolean_button" options="{'terminology': 'archive'}"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="x_name"/>
+                            <field name="x_descripcion"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_metodo_pago_search" model="ir.ui.view">
+        <field name="name">x_cotton_candy_bcn.metodo_pago.search</field>
+        <field name="model">x_cotton_candy_bcn.metodo_pago</field>
+        <field name="arch" type="xml">
+            <search string="Métodos de Pago">
+                <field name="x_name"/>
+                <field name="x_descripcion"/>
+                <separator/>
+                <filter string="Archivados" name="inactive" domain="[('x_activo', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Window -->
+    <record id="action_metodos_pago" model="ir.actions.act_window">
+        <field name="name">Métodos de Pago</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">x_cotton_candy_bcn.metodo_pago</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primer método de pago
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_configuracion_root" 
+              name="Configuración"
+              sequence="100"/>
+
+    <menuitem id="menu_metodos_pago"
+              name="Métodos de Pago"
+              parent="menu_configuracion_root"
+              action="action_metodos_pago"
+              sequence="1"/>
+</odoo> 
